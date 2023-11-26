@@ -1,0 +1,65 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+  <title>{% block title %}{% endblock %}</title>
+  <!-- Styles -->
+  <link rel="stylesheet" href="{% static "css/style.min.css" %}">
+  <script type="text/javascript">
+        let audio_dir = "{% static 'sound/' %}";
+        let htc = true;
+  </script>
+  <script src="{% static 'js/jquery-3.5.1.js' %}"></script>
+  <script src="{% static 'js/hts_ajax.js' %}"></script>
+  <script src="{% static "paho.javascript-1.0.3/paho-mqtt.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/mqtt_messages.min.js" %}"></script>
+</head>
+<body style="background-color:black;">
+  <main>
+    <div class="htc">
+      <div id="time_now">{% now "H:i:s" %}</div>
+      <div class="date"></div>
+       <div class="htc_value">
+            <div id="htc_value_1"></div>          
+            <div id="htc_value_2"></div>          
+            <div id="htc_value_3"></div>
+            <div id="htc_value_4"></div>
+       </div>
+            <img class="status" src="{% static "img/danger.png" %}" alt="danger">
+
+    </div>
+
+    <audio type="audio/ogg; codecs='vorbis'" src="{% static 'sound/sound1.ogg' %}" autoplay="autoplay"></audio>
+    <div id="management">
+        <span>Task: </span>
+        <br>
+        <input id= "task" class="inputs_set" type="text" name="task">
+        <br>
+        <span>Time: </span>
+    	  <br>
+        <input id= "set_time" class="inputs_set" type="text" name="seconds" value="25">
+        <span id="time" style="display:none"></span>
+        <br>
+        <span id="minutes"></span> : <span id="seconds"></span>
+    	  <span id="set"></span>
+            <br>
+
+      <button onclick="start()" id="start">start</button>
+      <button onclick="pauseTimer()" id="pause" style="display:none">pause</button>
+      <button onclick="stop()" id="stop" disabled="true">stop</button>
+    	<br><br>
+    	<span>
+        <b id="count_tasks">0</b>
+        tasks: 
+        <b id="all_min">0</b> min
+      </span>
+    </div>
+      <div id="history"></div>
+  </main>
+
+</body>
+</html>

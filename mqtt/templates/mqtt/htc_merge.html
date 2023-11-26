@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="refresh" content="10">
+
+  <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+  <title>{% block title %}{% endblock %}</title>
+  <!-- Styles -->
+  <link rel="stylesheet" href="{% static "css/style.min.css" %}">
+
+</head>
+<body style="background-color:black;" onload="startTime()">
+  <main>
+    <div class="htc">
+      <div id="time">{% now "H:i:s" %}</div>
+      <div class="date"></div>
+       <div class="htc_value">
+        {% for el in temps %}
+          {% if el %}
+            <div class="htc_value_{{ forloop.counter }}"> {{ el }}</div>
+          {% endif %}
+        {% endfor %}
+       </div>
+      {% if not status %}
+            <img class="status" src="{% static "img/danger.png" %}" alt="danger">
+      {% endif %}
+    </div>
+  </main>
+
+  <script type="text/javascript">
+  function startTime() {
+    var tm=new Date();
+    var h=tm.getHours();
+    var m=tm.getMinutes();
+    var s=tm.getSeconds();
+    m=checkTime(m);
+    s=checkTime(s);
+    document.getElementById('time').innerHTML=h+":"+m+":"+s;
+    t=setTimeout('startTime()',500);
+    }
+  function checkTime(i) {
+    if (i<10) {
+    i="0" + i;
+    }
+    return i;
+    }
+  </script>
+</body>
+</html>
